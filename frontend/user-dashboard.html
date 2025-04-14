@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <h1 id="welcomeMessage">Welcome</h1>
+  <button onclick="logout()">Logout</button>
+
+  <!-- Action buttons -->
+  <div>
+    <button onclick="toggleSection('deposit')">Deposit</button>
+    <button onclick="toggleSection('withdraw')">Withdraw</button>
+  </div>
+
+  <!-- Deposit Section -->
+  <section id="depositSection" style="display:none;">
+    <h2>Deposit</h2>
+    <input type="number" id="depositAmount" placeholder="Enter amount" />
+    <button onclick="makeDeposit()">Deposit</button>
+  </section>
+
+  <!-- Withdraw Section -->
+  <section id="withdrawSection" style="display:none;">
+    <h2>Withdraw</h2>
+    <input type="number" id="withdrawAmount" placeholder="Enter amount" />
+    <button onclick="makeWithdrawal()">Withdraw</button>
+  </section>
+
+  <!-- Transaction History -->
+  <h3 id="balanceDisplay">Balance: ₹0.00</h3>
+  <section>
+    <h2>Transaction History</h2>
+    <table id="transactionsTable" border="1">
+      <thead>
+        <tr>
+          <th>Type</th><th>Amount</th><th>Date</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="noTransactionsMessage" style="display:none;">No transactions available.</p>
+  </section>
+
+  <script src="js/user-dashboard.js"></script>
+</body>
+</html>
