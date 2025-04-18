@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     fetchTransactions();
-    // Decode the JWT token to extract user info
     const payloadBase64 = token.split('.')[1];
     const decodedPayload = JSON.parse(atob(payloadBase64));
     const userId = decodedPayload.id;
@@ -50,32 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("depositAmount").value = '';
     };
   
-    // Handle withdrawal
-    window.makeWithdrawal = async function () {
-      const amount = document.getElementById("withdrawAmount").value;
-  
-      if (!amount || amount <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-      }
-  
-      const res = await fetch("http://localhost:5001/api/user/withdraw", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ amount })
-      });
-  
-      const data = await res.json();
-      alert(data.message || "Withdrawal complete");
-      fetchBalance();
-      fetchTransactions(); // Refresh
-      document.getElementById("withdrawAmount").value = '';
-    };
-  
-    // Fetch and display balance
     async function fetchBalance() {
       try {
         const res = await fetch("http://localhost:5001/api/user/balance", {
@@ -90,6 +63,43 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error fetching balance:", err);
       }
     }
+   
+window.makeWithdrawal = async function () {
+  //fetchBalance();
+  const amount = document.getElementById("withdrawAmount").value;
+
+  if (!amount || amount <= 0) {
+    alert("Please enter a valid amount.");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5001/api/user/withdraw", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ amount })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      
+      throw new Error(data.message || "Withdrawal failed");
+    }
+
+    alert(data.message || "Withdrawal complete");
+    fetchBalance();
+    fetchTransactions(); // Refresh
+    document.getElementById("withdrawAmount").value = '';
+  } catch (err) {
+    alert(`Error: ${err.message}`);
+  }
+};
+
+
   
     // Fetch and display transactions
     async function fetchTransactions() {

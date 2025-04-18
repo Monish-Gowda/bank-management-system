@@ -62,8 +62,10 @@ exports.withdraw = (req, res) => {
       if (err) {
         return res.status(500).json({ message: 'Server error during withdrawal.' });
       }
-  
+     
       const user = result[0];
+      console.log(user.balance);
+      const amount = parseFloat(req.body.amount);
       if (user.balance < amount) {
         return res.status(400).json({ message: 'Insufficient funds.' });
       }
@@ -91,7 +93,7 @@ exports.withdraw = (req, res) => {
     });
   };
   exports.getBalance = (req, res) => {
-    const userId = req.user.id; // The user ID comes from the decoded JWT token
+    const userId = req.user.id; 
   
     const query = 'SELECT balance FROM users WHERE id = ?';
     db.query(query, [userId], (err, result) => {
@@ -104,7 +106,7 @@ exports.withdraw = (req, res) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      // Return the balance in the response
+      
       res.status(200).json({ balance: result[0].balance });
     });
   };

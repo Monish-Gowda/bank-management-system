@@ -120,12 +120,12 @@
   }
   
   th {
-    background-color: #1abc9c; /* Teal background for table header */
+    background-color: #1abc9c;
     color: white;
   }
   
   tbody tr:hover {
-    background-color: #f1f1f1; /* Light gray hover effect */
+    background-color: #f1f1f1; 
   }
   
   /* Section Styling */
@@ -206,5 +206,13 @@
     section {
       padding: 15px;
     }
+  }
+  
+  .auth-buttons {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    gap: 20px;                
+    margin-top: 30px;
   }
   

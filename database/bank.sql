@@ -23,4 +23,4 @@ CREATE TABLE transactions (
 
 -- You would hash the password before inserting from backend
 INSERT INTO users (name, email, phone, password, role, balance)
-VALUES ('Admin', 'admin@bank.com', '1234567890', 'hashed_password_here', 'admin', 0.00);
+VALUES ('admin1', 'admin@bank.com', '1234567890', 'hashed_password_here', 'admin', 0.00);
